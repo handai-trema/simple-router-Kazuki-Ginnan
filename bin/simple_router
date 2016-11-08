@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler'
+Bundler.setup :default
+
+require 'gli'
+require 'trema'
+
+# patch_panel command
+module SimpleRouterApp
+  extend GLI::App
+
+  desc 'Show a routing table'
+  arg_name ''
+  command :show_table do |c|
+    c.desc 'Location to find socket files'
+    c.flag [:S, :socket_dir], default_value: Trema::DEFAULT_SOCKET_DIR
+    c.action do |_global_options, options, args|
+      Trema.trema_process('SimpleRouter', options[:socket_dir]).controller.
+        show_table()
+    end
+  end
+
+
+  desc 'Add a entry'
+  arg_name 'dst_addr net_mask next_hop'
+  command :add_entry do |c|
+    c.desc 'Location to find socket files'
+    c.flag [:S, :socket_dir], default_value: Trema::DEFAULT_SOCKET_DIR
+
+    c.action do |_global_options, options, args|
+      dst_addr = args[0].to_s
+      net_mask = args[1].to_i
+      next_hop = args[2].to_s
+      Trema.trema_process('SimpleRouter', options[:socket_dir]).controller.
+        add_entry(dst_addr, net_mask, next_hop)
+    end
+  end
+
+
+  desc 'Delete a entry'
+  arg_name 'dst_addr net_mask next_hop'
+  command :delete_entry do |c|
+    c.desc 'Location to find socket files'
+    c.flag [:S, :socket_dir], default_value: Trema::DEFAULT_SOCKET_DIR
+
+    c.action do |_global_options, options, args|
+      dst_addr = args[0].to_s
+      net_mask = args[1].to_i
+      next_hop = args[2].to_s
+      Trema.trema_process('SimpleRouter', options[:socket_dir]).controller.
+        delete_entry(dst_addr, net_mask, next_hop)
+    end
+  end
+
+
+  desc 'Show router interfaces'
+  arg_name ''
+  command :show_interfaces do |c|
+    c.desc 'Location to find socket files'
+    c.flag [:S, :socket_dir], default_value: Trema::DEFAULT_SOCKET_DIR
+
+    c.action do |_global_options, options, args|
+      Trema.trema_process('SimpleRouter', options[:socket_dir]).controller.
+        show_interfaces()
+    end
+  end
+
+  exit run(ARGV)
+end

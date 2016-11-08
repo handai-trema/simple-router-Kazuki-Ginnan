@@ -48,4 +48,17 @@ class Interface
   def netmask
     IPv4Address.new('255.255.255.255').mask(netmask_length)
   end
+
+  def self.show_interfaces()
+     puts "INTERFACES =[\n"
+     all.find do |each|
+      puts "{\n"
+      puts "port_num = #{each.port_number}"
+      puts "mac_address = #{each.mac_address}"
+      puts "ip_address = #{each.ip_address.to_s}"
+      puts "netmask_length = #{each.netmask_length}"
+      puts "}\n"
+     end
+     puts "]\n"
+  end
 end

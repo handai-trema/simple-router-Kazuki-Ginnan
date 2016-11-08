@@ -89,6 +89,26 @@ class SimpleRouter < Trema::Controller
   end
   # rubocop:enable MethodLength
 
+#add 161105
+  def show_table()
+      show_routing_tables() 
+  end
+
+  def add_entry(dst_addr, net_mask, next_hop)
+      hash = {:destination => dst_addr, :netmask_length => net_mask, :next_hop => next_hop}
+      @routing_table.add(hash)
+  end
+
+  def delete_entry(dst_addr, net_mask, next_hop)
+      hash = {:destination => dst_addr, :netmask_length => net_mask, :next_hop => next_hop}
+      @routing_table.delete(hash)
+  end
+
+  def show_interfaces()
+      Interface.show_interfaces()
+  end
+#add end
+
   private
 
   def sent_to_router?(packet_in)
@@ -173,5 +193,11 @@ class SimpleRouter < Trema::Controller
                     raw_data: arp_request.to_binary,
                     actions: SendOutPort.new(interface.port_number))
   end
+
+#add 161105
+  def show_routing_tables()
+    @routing_table.show_tables()   
+  end
+#add end 161105
 end
 # rubocop:enable ClassLength
