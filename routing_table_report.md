@@ -133,7 +133,7 @@ def delete(options)
 ```
 
 add(option)にならって作成した。  
-ハッシュの削除に関しては、deleteのメソッドが用いることにより、実装した([参考サイト2](http://www.rubylife.jp/ini/hash_class/index5.html))。(インスタンス変数でのdeleteの使い方が中々思い浮かばなかったため、[辻健太](https://github.com/handai-trema/simple-router-k-tsuji/blob/develop/report_simple-router.md)を参考にさせていただきました。ありがとうございます。)  
+ハッシュの削除に関しては、deleteのメソッドが用いることにより、実装した([参考サイト2](http://www.rubylife.jp/ini/hash_class/index5.html))。(インスタンス変数でのdeleteの使い方が中々思い浮かばなかったため、[辻健太](https://github.com/handai-trema/simple-router-k-tsuji/blob/develop/report_simple-router.md)さんのレポートを参考にさせていただきました。ありがとうございます。)  
 
 
 simple_router.rbに以下のコードを追加した。
